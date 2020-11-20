@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Select from './Select/Select.jsx';
 import { styles } from './styles.js';
 
 export default function NewItem(props) {
@@ -12,12 +13,12 @@ export default function NewItem(props) {
 
   if (open) {
     return (
-      <div style={styles.Main}>
-        <button style={styles.Button} onClick={()=>{props.onClick({name, priority, cost})}}>Добавить</button>
-        <input type="text" placeholder="Название"  style={styles.Input} name="" id="" onChange={(e) => {setName(e.target.value)}} />
-        <input type="text" placeholder="Приоритет" style={styles.Input} name="" id="" onChange={(e) => {setPriority(e.target.value)}} />
-        <input type="text" placeholder="Цена"      style={styles.Input} name="" id="" onChange={(e) => {setCost(e.target.value)}} />
-      </div>
+        <div style={styles.Main}>
+          <button style={styles.Button} onClick={()=>{props.onClick({name, priority, cost})}}>Добавить</button>
+          <input type="text" placeholder="Название"  style={styles.Input} name="" id="" onChange={(e) => {setName(e.target.value)}} />
+          <input type="text" placeholder="Приоритет" style={styles.Input} name="" id="" onChange={(e) => {setPriority(e.target.value)}} />
+          <input type="text" placeholder="Цена"      style={styles.Input} name="" id="" onChange={(e) => {setCost(e.target.value)}} />
+        </div>
     );
   } else {
     return (
