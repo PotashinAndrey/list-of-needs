@@ -3,7 +3,7 @@ const Body = {
   padding: 0,
   border: 0,
   display: "grid",
-  gridTemplateColumns: "2fr 5fr 3fr 2fr",
+  gridTemplateColumns: "7fr 21fr 13fr 7fr",
   gridTemplateRows: "1fr 1fr 8fr",
   gridTemplateAreas: `". list score ." ". list search ." ". list info ."`,
   gridGap: "5px",
@@ -22,14 +22,14 @@ const List = {
 
 const Score = {
   gridArea: "score",
-  height: "20vh ",
+  height: "13vh ",
   // backgroundColor: "green",
-  boxShadow: "0 2px 10px #555"
+  boxShadow: "0 2px 10px #555",
 }
 
 const Search = {
   gridArea: "search",
-  height: "20vh ",
+  height: "27vh ",
   // backgroundColor: "gold",
   boxShadow: "0 2px 10px #555"
 }

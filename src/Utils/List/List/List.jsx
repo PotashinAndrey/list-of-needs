@@ -39,8 +39,6 @@ export default function List(props) {
 }
 
 function validateNewItem(item) {
-  console.log(item.cost);
-  console.log(+item.cost);
   if (item.name.length === 0) {
     return 'Введите имя';
   }

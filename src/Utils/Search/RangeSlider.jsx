@@ -10,29 +10,30 @@ const useStyles = makeStyles({
   },
 });
 
-function valuetext(value) {
-  return `${value}°C`;
-}
-
-export default function RangeSlider() {
+export default function RangeSlider({onChange}) {
   const classes = useStyles();
   const {state, dispatch} = useMyContext();
-  const [maxValueRange, setMaxValueRange] = useState(0);
+  const [maxValueRange, setMaxValueRange] = useState(1000);
+  const [value, setValue] = useState([0, 1000]);
 
   useEffect(() => {
+    let cost = 0;
     for (let key in state) {
-      if (state[key].cost > maxValueRange) {
-        setMaxValueRange(state[key].cost);
-      }
+      if (+state[key].cost > cost) cost = +state[key].cost;
     }
+    cost = cost > 0 ? cost : maxValueRange;
+    setMaxValueRange(cost);
   }, [state]);
 
-  const [value, setValue] = useState([0, maxValueRange? Math.floor(maxValueRange/2) : 1000]);
+  useEffect(() => {
+      if(value[1] > maxValueRange) {
+      setValue([0, maxValueRange]);
+    }
+  }, [maxValueRange]);
 
   useEffect(() => {
-    if (value < maxValueRange) return;
-    setValue([value[0], maxValueRange ? Math.floor(maxValueRange/2) : 1000]);
-  }, [maxValueRange]);
+    onChange({min: value[0], max: value[1]});
+  }, [value]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -41,11 +42,11 @@ export default function RangeSlider() {
   return (
     <div className={classes.root}>
       <Typography id="range-slider" gutterBottom>
-        Стоимость
+        Стоимость:
       </Typography>
       <Slider
         min={0}
-        max={maxValueRange? +maxValueRange : 1000}
+        max={maxValueRange}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"
