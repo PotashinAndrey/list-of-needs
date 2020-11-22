@@ -1,12 +1,15 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+
 
 export default function Information(props) {
   return (
-    <div style={props.style}>
-      <h1>Название</h1>
-      <p>Цена</p>
-      <p>Приоритет</p>
-      <p>Описание</p>
-    </div>
+    <Box style={props.style}>
+      <Typography>Название</Typography>
+      <Typography>Цена</Typography>
+      <Typography>Приоритет</Typography>
+      <Typography>Описание</Typography  >
+    </Box>
   );
 }

@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
-import Select from './Select/Select.jsx';
+import SelectPriority from './SelectPriority/SelectPriority.jsx';
 import { styles } from './styles.js';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
 
 export default function NewItem(props) {
   const [open, setOpen] = useState(false);
 
   const [name, setName] = useState('');
-  const [priority, setPriority] = useState('');
-  const [cost, setCost] = useState('');
+  const [priority, setPriority] = useState('green');
+  const [cost, setCost] = useState(0);
 
 
 
   if (open) {
     return (
-        <div style={styles.Main}>
-          <button style={styles.Button} onClick={()=>{props.onClick({name, priority, cost})}}>Добавить</button>
-          <input type="text" placeholder="Название"  style={styles.Input} name="" id="" onChange={(e) => {setName(e.target.value)}} />
-          <input type="text" placeholder="Приоритет" style={styles.Input} name="" id="" onChange={(e) => {setPriority(e.target.value)}} />
-          <input type="text" placeholder="Цена"      style={styles.Input} name="" id="" onChange={(e) => {setCost(e.target.value)}} />
-        </div>
+      <Box style={styles.Main}>
+        <Button onClick={() => { props.onClick({ name, priority, cost }) }} variant="contained">Добавить</Button>
+        <TextField onChange={(e) => { setName(e.target.value) }} id="standard-basic" label="Название" />
+        <SelectPriority onChange={setPriority} ></SelectPriority>
+        <TextField onChange={(e) => { setCost(e.target.value) }} id="standard-basic" label="Цена" />
+      </Box>
     );
   } else {
     return (
-      <div style={styles.BeforeClick}>
-        <button style={styles.Button} onClick={() => setOpen(true)}>Добавить</button>
-      </div>
+      <Box style={styles.BeforeClick}>
+        <Button onClick={() => setOpen(true)} variant="contained">Добавить</Button>
+      </Box>
     );
   }
 }

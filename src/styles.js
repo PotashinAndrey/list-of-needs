@@ -14,7 +14,9 @@ const Body = {
 const List = {
   gridArea: "list",
   height: "100vh ",
-  boxShadow: "0 2px 10px #555"
+  boxShadow: "0 2px 10px #555",
+  // marginTop: "5px",
+  // marginBottom: "5px"
   // backgroundColor: "red"
 }
 

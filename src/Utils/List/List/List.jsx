@@ -3,10 +3,15 @@ import ListHeader from '../ListHeader/ListHeader.jsx';
 import NewItem from '../NewItem/NewItem.jsx';
 import Items from '../Items/Items.jsx';
 import useMyContext from '../../MyContext/MyContext.jsx';
+import Box from '@material-ui/core/Box';
+import Modal from '../../Modal/Modal.jsx';
 
 export default function List(props) {
   const [items, setItems] = useState([]);
   const {state, dispatch} = useMyContext();
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState('');
+
 
   useEffect(() => {
     if (items.join(',') === (state?.items || []).join(',')) return;
@@ -14,14 +19,34 @@ export default function List(props) {
   }, [items]);
 
   function addNewItem(item) {
+    const ModalMessage = validateNewItem(item);
+    setText(ModalMessage);
+    if (ModalMessage != '') {
+      setOpen(true);
+      return;
+    }
     setItems([...items, item]);
   }
 
   return (
-      <div style={props.style} id="lsit">
+      <Box style={props.style} id="lsit">
         <ListHeader />
         <NewItem onClick={addNewItem} />
         <Items />
-      </div>
+        <Modal text={text} open={open} onClick={() => setOpen(false)} /> {/*   */}
+      </Box>
   );
+}
+
+function validateNewItem(item) {
+  console.log(item.cost);
+  console.log(+item.cost);
+  if (item.name.length === 0) {
+    return 'Введите имя';
+  }
+  if (isNaN(item.cost) || +item.cost <= 0 ) {
+    console.log(item.cost);
+    return "Введите сумму";
+  }
+  return '';
 }

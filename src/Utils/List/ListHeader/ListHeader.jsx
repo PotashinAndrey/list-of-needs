@@ -1,13 +1,15 @@
 import React from 'react';
-import {styles} from './styles.js';
+import { styles } from './styles.js';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 export default function Item() {
   return (
-    <div style={styles.Main}>
-      <p>Номер</p>
-      <p>Название</p>
-      <p>Приоритет</p>
-      <p>Цена</p>
-    </div>
+    <Box style={styles.Main}>
+      <Typography>Номер</Typography>
+      <Typography>Название</Typography>
+      <Typography>Приоритет</Typography>
+      <Typography>Цена</Typography>
+    </Box>
   );
 }
