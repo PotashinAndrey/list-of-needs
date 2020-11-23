@@ -12,16 +12,12 @@ const useStyles = makeStyles({
 
 export default function RangeSlider({onChange}) {
   const classes = useStyles();
-  const {state, dispatch} = useMyContext();
+  const {state} = useMyContext();
   const [maxValueRange, setMaxValueRange] = useState(1000);
   const [value, setValue] = useState([0, 1000]);
 
   useEffect(() => {
-    let cost = 0;
-    for (let key in state) {
-      if (+state[key].cost > cost) cost = +state[key].cost;
-    }
-    cost = cost > 0 ? cost : maxValueRange;
+    const cost = Math.max(0, ...state.items.map(e => e.cost));
     setMaxValueRange(cost);
   }, [state]);
 

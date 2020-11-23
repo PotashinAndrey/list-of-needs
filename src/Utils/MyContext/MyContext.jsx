@@ -2,7 +2,12 @@ import React, {useContext, useReducer} from 'react';
 
 const Context = React.createContext({});
 
-const initialState = { items: [] };
+const initialState = {
+  items: [],
+  name: '',
+  priority: [],
+  // rangeCost: []
+};
 
 const reducer = (state, action = initialState) => {
   const data = { ...state, ...action };

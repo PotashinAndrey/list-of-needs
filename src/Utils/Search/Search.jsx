@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -6,15 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import RangeSlider from './RangeSlider.jsx';
 import useMyContext from '../MyContext/MyContext.jsx';
-import ItemsReducer from '../MyContext/ItemsReducer.jsx';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
-import toArray from '../Tools/Tools.js';
 
 export default function Search(props) {
   const { state, dispatch } = useMyContext();
-  const [filtred, filtredDispatch] = useReducer(ItemsReducer, state);
 
   const [name, setName] = useState('');
   const [priority, setPriority] = useState({
@@ -22,34 +19,39 @@ export default function Search(props) {
     yellow: true,
     green: true
   });
-  const [value, setValue] = useState({min: 0, max: 0});
+  const [value, setValue] = useState({ min: 0, max: 0 });
 
   const handleChange = (event) => {
     setPriority({ ...priority, [event.target.name]: event.target.checked });
   };
 
-  useEffect(() => {
-    filtredDispatch({type: 'payload', payload: state})
-  }, [state]);
-
-
-  function find(name, priority, value) {
-    filtredDispatch({
-      type: 'sort',
-      name: name,
-      priority: priority,
+  function find() {
+    const selectedPriority = Object.keys(priority).filter(k => priority[k]);
+    dispatch({
+      name,
+      priority: selectedPriority,
       cost: value,
     });
-    console.log(filtred);
-    let sorted = toArray(filtred);
-    console.log(sorted);
-    console.log(filtred);
+  }
+
+  function clear() {
+    setName('');
+    setPriority({
+      red: true,
+      yellow: true,
+      green: true
+    });
+
+    dispatch({
+      name: '',
+      priority: ['red','green','yellow']
+    });
   }
 
   return (
     <Box className="search" style={props.style}>
       <Typography>Поиск: </Typography>
-      <TextField type="text" name="" id="" onChange={(e) => { setName(e.target.value) }} />
+      <TextField type="text" name="" id="" onChange={(e) => { setName(e.target.value) }} value={name} />
       <Typography>Приоритет: </Typography>
       <FormGroup row>
         <FormControlLabel
@@ -66,7 +68,10 @@ export default function Search(props) {
         />
       </FormGroup>
       <RangeSlider onChange={setValue} ></RangeSlider>
-      <Button onClick={() => find(name, priority, value)}>Искать</Button>
+      <FormGroup row style={{justifyContent: "center"}}>
+        <Button onClick={find}>Искать</Button>
+        <Button onClick={clear}>Сбросить</Button>
+      </FormGroup>
     </Box>
   );
 }

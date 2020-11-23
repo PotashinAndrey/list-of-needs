@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import Item from '../Item/Item.jsx';
 import useMyContext from '../../MyContext/MyContext.jsx';
 import Box from '@material-ui/core/Box';
 
 export default function Items() {
-  const {state, dispatch} = useMyContext();
+  const {state} = useMyContext();
 
-  let list = [];
+  const [filtered, setFiltered] = useState([]);
 
-  for (let key in state) {
-    list.push(state[key]);
-  }
+  useEffect(() => {
+    const array = state.items.filter(item => {
+      const name = !state.name || item.name.toLowerCase().includes(state.name.toLowerCase());
+      const priority = !state.priority.length || state.priority.includes(item.priority);
+      // const range
+
+      return name && priority;
+    });
+    setFiltered(array);
+  }, [state]);
+
+
 
   return (
-    <Box> {/*style={styles.Main}*/}
-      {list.map(( item, i) => <Item number={i + 1} name={item.name} priority={item.priority} cost={item.cost} key={i} />)}
+    <Box>
+      {filtered.map(( item, i) => <Item number={i + 1} name={item.name} priority={item.priority} cost={item.cost} key={i} />)}
     </Box>
   );
 }

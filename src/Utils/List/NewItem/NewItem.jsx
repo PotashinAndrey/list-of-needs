@@ -12,15 +12,15 @@ export default function NewItem(props) {
   const [priority, setPriority] = useState('green');
   const [cost, setCost] = useState(0);
 
-
+  const onClick = () => { props.onClick({ name, priority, cost }) };
 
   if (open) {
     return (
       <Box style={styles.Main}>
-        <Button onClick={() => { props.onClick({ name, priority, cost }) }} variant="contained">Добавить</Button>
+        <Button onClick={onClick} variant="contained">Добавить</Button>
         <TextField onChange={(e) => { setName(e.target.value) }} label="Название" />
         <SelectPriority onChange={setPriority} ></SelectPriority>
-        <TextField onChange={(e) => { setCost(e.target.value) }} label="Цена" />
+        <TextField onChange={(e) => { setCost(+e.target.value) }} label="Цена" />
       </Box>
     );
   } else {
