@@ -18,6 +18,12 @@ const ContextProvider = props => {
   return <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>;
 }
 
+// то же что и
+/*function ContextProvider({ reducer, initState, children }) {
+  const [state, dispatch] = useReducer(reducer, initState);
+  return <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>;
+}*/
+
 const ContextConsumer = Context.Consumer;
 
 const useMyContext = () => useContext(Context);

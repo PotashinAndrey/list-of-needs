@@ -1,16 +1,12 @@
-import React, { useReducer } from 'react';
+import toArray from '../Tools/Tools.js';
 
 export default function ItemsReducer(state, action, init) {
   switch (action.type) {
     case 'reset':
-      return state;
-    case 'sort': {
-      let length = 0;
-      for (let key in state) {
-        if (+key + 1 > length) length = +key + 1;
-      }
+      return action.reset;
 
-      let itemsArray = Array.from(Object.assign({}, state, { length }));
+    case 'sort': {
+      let itemsArray = toArray(state);
       let sortedArray = [];
 
       for (let i = 0; i < itemsArray.length; i++) {
@@ -20,6 +16,7 @@ export default function ItemsReducer(state, action, init) {
 
       return sortedArray;
     };
+
     case 'payload':
       return init(action.payload);
     default:

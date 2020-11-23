@@ -21,7 +21,7 @@ export default function List(props) {
   function addNewItem(item) {
     const ModalMessage = validateNewItem(item);
     setText(ModalMessage);
-    if (ModalMessage != '') {
+    if (ModalMessage !== '') {
       setOpen(true);
       return;
     }

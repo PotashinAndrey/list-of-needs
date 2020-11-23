@@ -18,9 +18,9 @@ export default function NewItem(props) {
     return (
       <Box style={styles.Main}>
         <Button onClick={() => { props.onClick({ name, priority, cost }) }} variant="contained">Добавить</Button>
-        <TextField onChange={(e) => { setName(e.target.value) }} id="standard-basic" label="Название" />
+        <TextField onChange={(e) => { setName(e.target.value) }} label="Название" />
         <SelectPriority onChange={setPriority} ></SelectPriority>
-        <TextField onChange={(e) => { setCost(e.target.value) }} id="standard-basic" label="Цена" />
+        <TextField onChange={(e) => { setCost(e.target.value) }} label="Цена" />
       </Box>
     );
   } else {

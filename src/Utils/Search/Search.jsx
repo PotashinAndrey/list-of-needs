@@ -10,11 +10,10 @@ import ItemsReducer from '../MyContext/ItemsReducer.jsx';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
-import useSortedContext from '../MyContext/ItemContext.jsx';
+import toArray from '../Tools/Tools.js';
 
 export default function Search(props) {
   const { state, dispatch } = useMyContext();
-  const { sortedItems, sortedDispatch} = useSortedContext();//!!!!!!!!!
   const [filtred, filtredDispatch] = useReducer(ItemsReducer, state);
 
   const [name, setName] = useState('');
@@ -41,7 +40,10 @@ export default function Search(props) {
       priority: priority,
       cost: value,
     });
-    sortedDispatch(toArray(filtred)); //!!!!!!!!!!!!!!!!!!!!!!!!!!
+    console.log(filtred);
+    let sorted = toArray(filtred);
+    console.log(sorted);
+    console.log(filtred);
   }
 
   return (
@@ -69,11 +71,3 @@ export default function Search(props) {
   );
 }
 
-function toArray(obj) { //!!!!!!!!!!!
-  let length = 0;
-  for (let key in obj) {
-    if (+key + 1 > length) length = +key + 1;
-  }
-
-  return Array.from(Object.assign({}, obj, { length }));
-}
