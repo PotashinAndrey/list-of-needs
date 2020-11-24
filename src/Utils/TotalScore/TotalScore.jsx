@@ -29,7 +29,7 @@ export default function TotalScore(props) {
     return (
       <Box style={props.style}>
         <Typography variant="h4">{`Сумма: ${totalScore} руб.`}</Typography>
-        <Typography variant="h6">{`Всего элементов ${totalNumberOfItems}`}</Typography>
+        <Typography variant="h6">{`Всего элементов: ${totalNumberOfItems}`}</Typography>
       </Box>
     );
   } else if (totalNumberOfItems !== 0 && numberOfFiltred === 0) {
@@ -42,8 +42,8 @@ export default function TotalScore(props) {
     return (
       <Box style={props.style}>
         <Typography variant="h4">{`Сумма: ${totalScore} руб.`}</Typography>
-        <Typography variant="h6">{`Текущая сумма ${currentScore} руб.`}</Typography>
-        <Typography variant="h6">{`Показанно ${numberOfFiltred} из ${totalNumberOfItems}`}</Typography>
+        <Typography variant="h6">{`Текущая сумма: ${currentScore} руб.`}</Typography>
+        <Typography variant="h6">{`Показанно элементов: ${numberOfFiltred} из ${totalNumberOfItems}`}</Typography>
       </Box>
     )
   }
