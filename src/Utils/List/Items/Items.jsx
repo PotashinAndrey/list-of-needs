@@ -1,10 +1,10 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Item from '../Item/Item.jsx';
 import useMyContext from '../../MyContext/MyContext.jsx';
 import Box from '@material-ui/core/Box';
 
 export default function Items() {
-  const {state} = useMyContext();
+  const { state } = useMyContext();
 
   const [filtered, setFiltered] = useState([]);
 
@@ -17,9 +17,6 @@ export default function Items() {
       return name && priority && range;
     });
 
-    console.log(state.cost);
-    console.log(state.max);
-
     setFiltered(array);
   }, [state]);
 
@@ -27,7 +24,7 @@ export default function Items() {
 
   return (
     <Box>
-      {filtered.map(( item, i) => <Item number={i + 1} name={item.name} priority={item.priority} cost={item.cost} key={i} />)}
+      {filtered.map((item, i) => <Item number={i + 1} name={item.name} priority={item.priority} cost={item.cost} key={i} />)}
     </Box>
   );
 }

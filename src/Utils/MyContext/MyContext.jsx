@@ -4,10 +4,12 @@ const Context = React.createContext({});
 
 const initialState = {
   items: [],
+  // filtred: [],
   name: '',
   priority: [],
   cost: [],
-  max: 0
+  max: 0,
+  // filtredMax: 0,
 };
 
 const reducer = (state, action = initialState) => {
