@@ -8,15 +8,8 @@ import Modal from '../../Modal/Modal.jsx';
 
 export default function List(props) {
   const { state, dispatch } = useMyContext();
-  // const [items, setItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
-
-  // useEffect(() => {
-  //   if (items.join(',') === (state?.items || []).join(',')) return;
-  //   dispatch(items)
-  //   console.log(items)
-  // }, [items]);
 
   function addNewItem(item) {
     const ModalMessage = validateNewItem(item);
@@ -26,7 +19,11 @@ export default function List(props) {
       return;
     }
 
-    // if (item.cost > state.max) dispatch({max: item.cost})
+    if (isItemExist(item, state)) {
+      setText('В списке уже есть эта вещь');
+      setOpen(true);
+      return
+    }
 
     const items = state.items.concat(item);
     dispatch({ items });
@@ -47,8 +44,14 @@ function validateNewItem(item) {
     return 'Введите имя';
   }
   if (isNaN(item.cost) || +item.cost <= 0) {
-    console.log(item.cost);
     return "Введите сумму";
   }
   return '';
+}
+
+function isItemExist(item, state) {
+  const name = item.name;
+  let exist = state.items.find(e => e.name.toLowerCase() === name.toLowerCase());
+  exist = exist === undefined ? false : exist;
+  return exist;
 }

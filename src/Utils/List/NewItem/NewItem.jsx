@@ -12,7 +12,7 @@ export default function NewItem(props) {
   const [priority, setPriority] = useState('green');
   const [cost, setCost] = useState(0);
 
-  const onClick = () => { props.onClick({ name, priority, cost }) };
+  const onClick = () => { props.onClick({ name, priority, cost, description: '' }) };
 
   if (open) {
     return (

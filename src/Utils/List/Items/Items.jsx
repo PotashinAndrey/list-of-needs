@@ -4,7 +4,7 @@ import useMyContext from '../../MyContext/MyContext.jsx';
 import Box from '@material-ui/core/Box';
 
 export default function Items() {
-  const { state } = useMyContext();
+  const { state, dispatch } = useMyContext();
 
   const [filtered, setFiltered] = useState([]);
 
@@ -20,11 +20,13 @@ export default function Items() {
     setFiltered(array);
   }, [state]);
 
-
+  function itemFocus(name, priority, cost, description) {
+    dispatch({currentItem: {name: name, priority: priority, cost: cost, description: description }});
+  }
 
   return (
     <Box>
-      {filtered.map((item, i) => <Item number={i + 1} name={item.name} priority={item.priority} cost={item.cost} key={i} />)}
+      {filtered.map((item, i) => <Item onClick={itemFocus} number={i + 1} name={item.name} priority={item.priority} cost={item.cost} key={i} description={item.description} />)}
     </Box>
   );
 }

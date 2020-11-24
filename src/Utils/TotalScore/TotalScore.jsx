@@ -22,21 +22,27 @@ export default function TotalScore(props) {
 
     setCurrentScore(array.reduce((a, e) => a + e.cost, 0));
     setNumberOfFiltred(array.length);
-
   }, [state]);
 
 
-  if (numberOfFiltred === 0 || numberOfFiltred === totalNumberOfItems) {
+  if (numberOfFiltred === totalNumberOfItems) {
     return (
       <Box style={props.style}>
-        <Typography variant="h4">{`Сумма: ${totalScore} рублей`}</Typography>
+        <Typography variant="h4">{`Сумма: ${totalScore} руб.`}</Typography>
+        <Typography variant="h6">{`Всего элементов ${totalNumberOfItems}`}</Typography>
       </Box>
     );
+  } else if (totalNumberOfItems !== 0 && numberOfFiltred === 0) {
+    return (
+      <Box style={props.style}>
+        <Typography variant="h5">{`нет элементов удовлетворяющих условиям поиска `}</Typography>
+      </Box>
+    )
   } else {
     return (
       <Box style={props.style}>
-        <Typography variant="h4">{`Сумма: ${totalScore} рублей`}</Typography>
-        <Typography variant="h6">{`Текущая сумма ${currentScore} рублей`}</Typography>
+        <Typography variant="h4">{`Сумма: ${totalScore} руб.`}</Typography>
+        <Typography variant="h6">{`Текущая сумма ${currentScore} руб.`}</Typography>
         <Typography variant="h6">{`Показанно ${numberOfFiltred} из ${totalNumberOfItems}`}</Typography>
       </Box>
     )
