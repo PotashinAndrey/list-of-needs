@@ -6,19 +6,20 @@ import useMyContext from '../MyContext/MyContext.jsx';
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
+    width: "90%",
   },
 });
 
 export default function RangeSlider({onChange}) {
   const classes = useStyles();
   const {state} = useMyContext();
-  const [maxValueRange, setMaxValueRange] = useState(1000);
+  const [maxValueRange, setMaxValueRange] = useState(0);
   const [value, setValue] = useState([0, 1000]);
 
   useEffect(() => {
     const cost = Math.max(0, ...state.items.map(e => e.cost));
     setMaxValueRange(cost);
+    setValue([0, cost]);
   }, [state]);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function RangeSlider({onChange}) {
   }, [maxValueRange]);
 
   useEffect(() => {
-    onChange({min: value[0], max: value[1]});
+    onChange(value);
   }, [value]);
 
   const handleChange = (event, newValue) => {

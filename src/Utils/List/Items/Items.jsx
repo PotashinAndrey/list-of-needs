@@ -12,10 +12,14 @@ export default function Items() {
     const array = state.items.filter(item => {
       const name = !state.name || item.name.toLowerCase().includes(state.name.toLowerCase());
       const priority = !state.priority.length || state.priority.includes(item.priority);
-      // const range
+      const range = !state.cost.length || item.cost >= state.cost[0] && item.cost <= state.cost[1]
 
-      return name && priority;
+      return name && priority && range;
     });
+
+    console.log(state.cost);
+    console.log(state.max);
+
     setFiltered(array);
   }, [state]);
 

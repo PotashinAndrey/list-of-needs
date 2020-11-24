@@ -3,8 +3,6 @@ import './style.css';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import RangeSlider from './RangeSlider.jsx';
 import useMyContext from '../MyContext/MyContext.jsx';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -19,34 +17,29 @@ export default function Search(props) {
     yellow: true,
     green: true
   });
-  const [value, setValue] = useState({ min: 0, max: 0 });
+  const [value, setValue] = useState([0, 0]);
+  const [maxCost, setMaxCost] = useState(state.max);
 
-  const handleChange = (event) => {
-    setPriority({ ...priority, [event.target.name]: event.target.checked });
-  };
+  useEffect(() => {
+    if (maxCost !== state.max) {
+      setValue([0, state.max]);
+      setMaxCost(state.max);
+    }
+  }, [state.max]);
 
-  function find() {
+  useEffect(() => {
     const selectedPriority = Object.keys(priority).filter(k => priority[k]);
     dispatch({
       name,
       priority: selectedPriority,
       cost: value,
     });
-  }
+  }, [value, name, priority]);
 
-  function clear() {
-    setName('');
-    setPriority({
-      red: true,
-      yellow: true,
-      green: true
-    });
+  const handleChange = (event) => {
+    setPriority({ ...priority, [event.target.name]: event.target.checked });
+  };
 
-    dispatch({
-      name: '',
-      priority: ['red','green','yellow']
-    });
-  }
 
   return (
     <Box className="search" style={props.style}>
@@ -67,12 +60,9 @@ export default function Search(props) {
           label="Низкий"
         />
       </FormGroup>
-      <RangeSlider onChange={setValue} ></RangeSlider>
-      <FormGroup row style={{justifyContent: "center"}}>
-        <Button onClick={find}>Искать</Button>
-        <Button onClick={clear}>Сбросить</Button>
-      </FormGroup>
+      {/* <RangeSlider onChange={setValue} ></RangeSlider> */}
+      <TextField type="number" id="minValue" onChange={(e) => { setValue([+e.target.value, value[1]] ) }} value={value[0]} />
+      <TextField type="number" id="maxValue" onChange={(e) => { setValue([value[0], +e.target.value]) }} value={value[1]} />
     </Box>
   );
 }
-

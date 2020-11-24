@@ -20,7 +20,7 @@ export default function NewItem(props) {
         <Button onClick={onClick} variant="contained">Добавить</Button>
         <TextField onChange={(e) => { setName(e.target.value) }} label="Название" />
         <SelectPriority onChange={setPriority} ></SelectPriority>
-        <TextField onChange={(e) => { setCost(+e.target.value) }} label="Цена" />
+        <TextField type="number" onChange={(e) => { setCost(+e.target.value) }} label="Цена" />
       </Box>
     );
   } else {

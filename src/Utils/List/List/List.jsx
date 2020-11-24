@@ -26,6 +26,8 @@ export default function List(props) {
       return;
     }
 
+    // if (item.cost > state.max) dispatch({max: item.cost})
+
     const items = state.items.concat(item);
     dispatch({ items });
   }

@@ -6,11 +6,19 @@ const initialState = {
   items: [],
   name: '',
   priority: [],
-  // rangeCost: []
+  cost: [],
+  max: 0
 };
 
 const reducer = (state, action = initialState) => {
   const data = { ...state, ...action };
+
+  const max = data.items?.reduce((a, e) => {
+    if (e.cost > a) a = e.cost;
+    return a;
+  }, 0)
+
+  data.max = max;
   // тут луше бы сравнить два объекта и сделать что-то типа такого
   // return equal ? state : data;
   // но иногда можно и положить хуй
